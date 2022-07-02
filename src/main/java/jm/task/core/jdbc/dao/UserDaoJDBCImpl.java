@@ -8,35 +8,51 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
+    
     public void createUsersTable() {
         Connection connection = Util.getConnection();
-        try (Statement stmt = connection.createStatement()) {
-            String createTableQuery = "CREATE TABLE IF NOT EXISTS users(id int not null primary key AUTO_INCREMENT, name varchar(30), lastName varchar(30), age smallint check (age>0));";
-            stmt.execute(createTableQuery);
-        } catch (SQLException throwables) {
+        try (Statement statement = connection.createStatement()) {
+            statement.executeUpdate( "CREATE TABLE IF NOT EXISTS users (" +
+            "id int not null auto_increment primary key,"+
+            "name varchar(45),"+
+            "lastName varchar(45),"+
+            "age int)");
+        } catch (SQLException e) {
 
         }
     }
+/*    public void createUsersTable() {
+        Connection connection = Util.getConnection();
+        try (Statement stmt = connection.createStatement()) {
+            String createTableQuery = "CREATE TABLE IF NOT EXISTS users (" +
+                    "id int not null auto_increment primary key,"+
+                    "name varchar(45),"+
+                    "lastName varchar(45),"+
+                    "age int)";
+            stmt.execute(createTableQuery);
+        } catch (SQLException e) {
 
+        }
+   }
+ */
     public void dropUsersTable() {
         Connection connection = Util.getConnection();
         try (Statement stmt = connection.createStatement()) {
             String dropTableQuery = "DROP TABLE users";
             stmt.execute(dropTableQuery);
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
 
         }
-
     }
 
     public void saveUser(String name, String lastName, byte age) {
         Connection connection = Util.getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name, lastName, age) VALUES (?,?,?)")) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (name, lastName, age) value (?,?,?)")) {
             preparedStatement.setString(1, name);
             preparedStatement.setString(2, lastName);
             preparedStatement.setInt(3, age);
             preparedStatement.executeUpdate();
-        } catch (SQLException throwables) {
+        } catch (SQLException e) {
 
         }
     }
