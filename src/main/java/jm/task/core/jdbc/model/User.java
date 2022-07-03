@@ -3,20 +3,20 @@ package jm.task.core.jdbc.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
+@Entity
 @Table
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-    @Column(name = "lastname")
+    @Column
     private String lastName;
 
-    @Column(name = "age")
+    @Column
     private Byte age;
 
     public User() {
@@ -59,5 +59,10 @@ public class User implements Serializable {
 
     public void setAge(Byte age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User [UserId=" + id + " , UserName=" + name + " , UserLastName=" + lastName + " , UserAge=" + age + "]";
     }
 }

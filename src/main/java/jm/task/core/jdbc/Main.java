@@ -12,14 +12,14 @@ public class Main {
 
     public static void main(String[] args) {
         UserServiceImpl userService = new UserServiceImpl();
-        List<User> userList = new ArrayList<>();
+
 
         Util.getConnection();
         userService.createUsersTable();
 
         userService.saveUser("Ivan1", "Ivanov2", (byte) 21);
 
-        userList = userService.getAllUsers();
+        userService.getAllUsers();
         userService.cleanUsersTable();
         userService.dropUsersTable();
     }
